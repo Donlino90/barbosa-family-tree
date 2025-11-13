@@ -1,4 +1,10 @@
 import { FamilyMember } from "@/types/family";
+import joaoBarbosaPhoto from "@/assets/members/joao-barbosa.jpg";
+import mariaBarbosaPhoto from "@/assets/members/maria-barbosa.jpg";
+import carlosBarbosaPhoto from "@/assets/members/carlos-barbosa.jpg";
+import anaBarbosaPhoto from "@/assets/members/ana-barbosa.jpg";
+import pedroBarbosaPhoto from "@/assets/members/pedro-barbosa.jpg";
+import juliaBarbosaPhoto from "@/assets/members/julia-barbosa.jpg";
 
 export const familyMembers: FamilyMember[] = [
   {
@@ -11,6 +17,7 @@ export const familyMembers: FamilyMember[] = [
     children: ["3", "4"],
     spouse: "2",
     occupation: "Comerciante",
+    photo: joaoBarbosaPhoto,
     bio: "Fundador da família Barbosa em São Paulo. Empreendedor visionário que estabeleceu um dos primeiros comércios da região."
   },
   {
@@ -23,6 +30,7 @@ export const familyMembers: FamilyMember[] = [
     children: ["3", "4"],
     spouse: "1",
     occupation: "Professora",
+    photo: mariaBarbosaPhoto,
     bio: "Dedicada educadora que inspirou gerações de alunos e sua própria família."
   },
   {
@@ -35,6 +43,7 @@ export const familyMembers: FamilyMember[] = [
     children: ["5", "6"],
     spouse: "7",
     occupation: "Engenheiro",
+    photo: carlosBarbosaPhoto,
     bio: "Engenheiro civil responsável por importantes obras de infraestrutura na cidade."
   },
   {
@@ -46,6 +55,7 @@ export const familyMembers: FamilyMember[] = [
     parents: ["1", "2"],
     children: ["8"],
     occupation: "Médica",
+    photo: anaBarbosaPhoto,
     bio: "Médica pediatra que dedicou sua vida ao cuidado de crianças carentes."
   },
   {
@@ -57,6 +67,7 @@ export const familyMembers: FamilyMember[] = [
     parents: ["3", "7"],
     children: ["9", "10"],
     occupation: "Advogado",
+    photo: pedroBarbosaPhoto,
     bio: "Advogado especializado em direito empresarial."
   },
   {
@@ -67,6 +78,7 @@ export const familyMembers: FamilyMember[] = [
     generation: 3,
     parents: ["3", "7"],
     occupation: "Arquiteta",
+    photo: juliaBarbosaPhoto,
     bio: "Arquiteta premiada com foco em sustentabilidade."
   },
   {

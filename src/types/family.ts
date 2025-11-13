@@ -7,7 +7,7 @@ export interface FamilyMember {
   photo?: string;
   generation: number;
   parents?: string[];
-  spouse?: string;
+  spouses?: string[]; // Changed to array to support multiple spouses
   children?: string[];
   occupation?: string;
   bio?: string;

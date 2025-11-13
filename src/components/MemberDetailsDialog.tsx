@@ -27,7 +27,7 @@ export const MemberDetailsDialog = ({ member, isOpen, onClose, allMembers }: Mem
 
   const parents = getRelatives(member.parents);
   const children = getRelatives(member.children);
-  const spouse = member.spouse ? allMembers.find(m => m.id === member.spouse) : null;
+  const spouses = getRelatives(member.spouses);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -108,13 +108,17 @@ export const MemberDetailsDialog = ({ member, isOpen, onClose, allMembers }: Mem
               Relações Familiares
             </h3>
             
-            {spouse && (
+            {spouses.length > 0 && (
               <div>
                 <p className="text-sm font-medium text-muted-foreground flex items-center gap-2 mb-2">
                   <Heart className="w-4 h-4 text-accent" />
-                  Cônjuge
+                  Cônjuge{spouses.length > 1 ? 's' : ''}
                 </p>
-                <Badge variant="outline" className="text-sm">{spouse.name}</Badge>
+                <div className="flex flex-wrap gap-2">
+                  {spouses.map(spouse => (
+                    <Badge key={spouse.id} variant="outline" className="text-sm">{spouse.name}</Badge>
+                  ))}
+                </div>
               </div>
             )}
             

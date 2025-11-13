@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { familyMembers } from "@/data/familyData";
 import { FamilyMember, Generation } from "@/types/family";
 import { MemberCard } from "@/components/MemberCard";
@@ -7,13 +9,28 @@ import { AddMemberDialog } from "@/components/AddMemberDialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import heroTree from "@/assets/hero-tree.jpg";
-import { Plus, Users, TreePine } from "lucide-react";
+import { Plus, Users, TreePine, LogIn, LayoutDashboard } from "lucide-react";
 
 const Index = () => {
   const [members, setMembers] = useState<FamilyMember[]>(familyMembers);
   const [selectedMember, setSelectedMember] = useState<FamilyMember | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check authentication status
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const generations: Generation[] = [
     { number: 1, label: "1ª Geração - Fundadores", members: members.filter(m => m.generation === 1) },
@@ -33,8 +50,33 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-hero">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border shadow-lg">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <TreePine className="w-6 h-6 text-primary" />
+            <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              PI-Family
+            </h1>
+          </div>
+          <div className="flex items-center gap-2">
+            {isAuthenticated ? (
+              <Button onClick={() => navigate("/dashboard")} variant="default">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                Dashboard
+              </Button>
+            ) : (
+              <Button onClick={() => navigate("/auth")} variant="default">
+                <LogIn className="mr-2 h-4 w-4" />
+                Entrar
+              </Button>
+            )}
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <header className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+      <header className="relative h-[60vh] flex items-center justify-center overflow-hidden mt-16">
         <div className="absolute inset-0">
           <img 
             src={heroTree} 
